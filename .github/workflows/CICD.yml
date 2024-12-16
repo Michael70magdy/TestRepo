@@ -31,6 +31,9 @@ jobs:
           maven-version: 3.9.9
 
       - name: Execute Tests
+        run: mvn -Dtest="${{ github.event.inputs.testsPath }}" test
+
+      - name: Execute Tests
         run: mvn -Dtest="" test
 
       - name: Publish Report
