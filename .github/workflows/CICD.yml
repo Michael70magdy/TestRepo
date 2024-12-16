@@ -6,7 +6,7 @@ on:
         default: 'POM_Tests.AutomationExerciseTests'
 
   schedule:
-    - cron: "20 20 * * *"
+    - cron: "24 20 * * *"
 
 jobs:
   E2E_Test:
@@ -30,7 +30,7 @@ jobs:
           maven-version: 3.9.9
 
       - name: Execute Tests
-        run: mvn -Dtest="${{ github.event.inputs.testsPath }}" test
+        run: mvn -Dtest="POM_Tests.AutomationExerciseTests" test
 
       - name: Publish Report
         continue-on-error: true
