@@ -1,8 +1,15 @@
 name: E2E Tests
 
 on:
-    schedule:
+  workflow_dispatch:
+    inputs:
+      testsPath:
+        description: 'Path to Tests to be Executed'
+        default: 'POM_Tests.AutomationExerciseTests'
+
+  schedule:
       - cron: "*/2 * * * *"
+
 jobs:
   E2E_Test:
     runs-on: windows-latest
