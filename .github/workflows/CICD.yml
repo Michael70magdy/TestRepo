@@ -1,13 +1,13 @@
 name: E2E Tests
 
 on:
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:
     inputs:
       testsPath:
         description: 'Path to Tests to be Executed'
         default: ''
 
-  schedule: # Trigger at 10:15 PM UTC daily
+  schedule:
     - cron: "*/2 * * * *"
 
   pull_request:
