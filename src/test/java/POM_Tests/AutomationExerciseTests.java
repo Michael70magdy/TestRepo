@@ -25,7 +25,7 @@ public class AutomationExerciseTests {
     @BeforeClass
     public void Setup() {
         PropertiesReader.loadProperties();
-        driver = browserActions.Webactions(System.getProperty("BrowserName"),Boolean.parseBoolean(System.getProperty("WindowMaximize")) );
+        driver = browserActions.Webactions(System.getProperty("BrowserName"),Boolean.parseBoolean(System.getProperty("WindowMaximize")),Boolean.parseBoolean(System.getProperty("HeadLessBrowsing")) );
         jm = new JsonFileManager("src/test/resources/JsonDataFile.json");
         new HomePage(driver)
                 .NavigateToHomePage();
