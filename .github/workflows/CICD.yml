@@ -8,7 +8,8 @@ on:
         default: ''
 
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "0 23 * * *"
+
 ##comment to try pull request
   ##new comment
   ##test test
