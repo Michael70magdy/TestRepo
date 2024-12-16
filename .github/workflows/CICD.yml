@@ -6,9 +6,9 @@ on:
       testsPath:
         description: 'Path to Tests to be Executed'
         default: 'POM_Tests.AutomationExerciseTests'
-
+##change cron time
   schedule:
-    - cron: "0 23 * * *"
+    - cron: "*/10 * * * *"
 
 ##comment to try pull request
   ##new comment
