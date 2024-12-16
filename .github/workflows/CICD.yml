@@ -1,8 +1,8 @@
 name: E2E Tests
 
 on:
-  schedule:
-    - cron: "3 * * * *"
+    schedule:
+      - cron: "*/2 * * * *"
 jobs:
   E2E_Test:
     runs-on: windows-latest
