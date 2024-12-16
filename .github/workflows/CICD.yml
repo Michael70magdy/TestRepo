@@ -5,6 +5,9 @@ on:
         description: 'Path to Tests to be Executed'
         default: ''
 
+  schedule:
+    - cron: "15 20 * * *"
+
 jobs:
   E2E_Test:
     runs-on: windows-latest
