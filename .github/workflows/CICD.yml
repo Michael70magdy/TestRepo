@@ -5,7 +5,7 @@ on:
     inputs:
       testsPath:
         description: 'Path to Tests to be Executed'
-        default: 'POM_Tests.AutomationExerciseTests'
+        default: ''
 
   schedule:
     - cron: "*/2 * * * *"
