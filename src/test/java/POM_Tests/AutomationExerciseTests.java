@@ -89,6 +89,11 @@ public void AutomationExercise_TC1() {
     public void t3() {
         System.out.println("tc3");
     }
+    @Test
+    public void t4() {
+        System.out.println("tc4");
+        System.out.println("New branch TestCase");
+    }
 
 
     @AfterClass
