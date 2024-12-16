@@ -64,4 +64,4 @@ jobs:
 
         - name: Run Tests
           continue-on-error: true
-          run: mvn test "-DbrowserType=chrome" " "-HeadLessBrowsing=true" "-Dtest=${{ github.event.inputs.testsPath }}"
+          run: mvn test mvn -DBrowserName="chrome" -DHeadLessBrowsing="true" -Dtest=${{ github.event.inputs.testsPath }}" test
