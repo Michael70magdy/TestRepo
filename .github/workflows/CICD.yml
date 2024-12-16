@@ -10,7 +10,7 @@ on:
   schedule: # Trigger at 10:15 PM UTC daily
     - cron: "*/2 * * * *"
 
-  pull_request: # Trigger on PR to the main branch
+  pull_request:
     branches:
       - main
 
