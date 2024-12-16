@@ -65,3 +65,12 @@ jobs:
         - name: Run Tests
           continue-on-error: true
           run: mvn test mvn -DBrowserName="chrome" -DHeadLessBrowsing="true" -Dtest=${{ github.event.inputs.testsPath }}" test
+
+        - name: Publish Report
+          continue-on-error: true
+          uses: dorny/test-reporter@v1
+          if: success() || failure()
+          with:
+            name: Tests Report
+            path: 'target/surefire-reports/TEST-*.xml'
+            reporter: java-junit
