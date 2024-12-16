@@ -1,5 +1,3 @@
-name: E2E Tests
-
 on:
   workflow_dispatch:
     inputs:
@@ -7,34 +5,29 @@ on:
         description: 'Path to Tests to be Executed'
         default: ''
 
-
 jobs:
-  E2E_Chrome_Test:
+  E2E_Test:
     runs-on: windows-latest
     permissions:
       checks: write
-
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: setup java jdk
+      - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '21'
 
-      - name: SetupMaven
+      - name: Setup Maven
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.9.9
 
       - name: Execute Tests
         run: mvn -Dtest="${{ github.event.inputs.testsPath }}" test
-
-      - name: Execute Tests
-        run: mvn -Dtest="" test
 
       - name: Publish Report
         continue-on-error: true
