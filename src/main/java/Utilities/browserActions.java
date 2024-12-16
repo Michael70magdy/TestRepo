@@ -24,7 +24,7 @@ public class browserActions {
             options.addArguments("headless");
             driver = new ChromeDriver(options);
             System.out.println("Title is: " +driver.getTitle());
-            System.out.println("Headless Chrome Driver opened");
+            System.out.println("Headless Chrome Driver run started");
         }
         if (maximize) {
             System.out.println("Window maximized");
