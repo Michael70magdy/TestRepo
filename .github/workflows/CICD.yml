@@ -1,14 +1,18 @@
 name: E2E Tests
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Manual trigger
     inputs:
       testsPath:
         description: 'Path to Tests to be Executed'
         default: ''
 
-  schedule:
+  schedule: # Trigger at 10:15 PM UTC daily
     - cron: "*/2 * * * *"
+
+  pull_request: # Trigger on PR to the main branch
+    branches:
+      - main
 
 jobs:
   E2E_Test_WindowsTest:
@@ -32,7 +36,16 @@ jobs:
           maven-version: 3.9.9
 
       - name: Execute Tests
-        run: mvn -DBrowserName="edge" -Dtest="${{ github.event.inputs.testsPath }}" test
+        run: mvn -DBrowserName="edge" -Dtest="${{ github.event.inputs.testsPath || 'POM_Tests.AutomationExerciseTests' }}" test
+
+      - name: Generate Allure Report
+        run: mvn allure:report
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Allure-Report-Windows
+          path: target/site/allure-maven-plugin
 
       - name: Publish Report
         continue-on-error: true
@@ -46,31 +59,40 @@ jobs:
   E2E_Ubuntu_Chrome:
     runs-on: ubuntu-latest
     permissions:
-        checks: write
+      checks: write
+
     steps:
-        - name: Checkout Code
-          uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-        - name: Setup JDK 21
-          uses: actions/setup-java@v4
-          with:
-            distribution: 'zulu'
-            java-version: '21'
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
 
-        - name: Set up Maven
-          uses: stCarolas/setup-maven@v4.5
-          with:
-            maven-version: 3.9.6
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4.5
+        with:
+          maven-version: 3.9.6
 
-        - name: Run Tests
-          continue-on-error: true
-          run: mvn -DBrowserName="chrome" -DHeadLessBrowsing="true" -Dtest=${{ github.event.inputs.testsPath }}" test
+      - name: Execute Tests
+        run: mvn -DBrowserName="chrome" -DHeadLessBrowsing="true" -Dtest="${{ github.event.inputs.testsPath || 'POM_Tests.AutomationExerciseTests' }}" test
 
-        - name: Publish Report
-          continue-on-error: true
-          uses: dorny/test-reporter@v1
-          if: success() || failure()
-          with:
-            name: Tests Report
-            path: 'target/surefire-reports/TEST-*.xml'
-            reporter: java-junit
+      - name: Generate Allure Report
+        run: mvn allure:report
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Allure-Report-Ubuntu
+          path: target/site/allure-maven-plugin
+
+      - name: Publish Report
+        continue-on-error: true
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Tests Report
+          path: 'target/surefire-reports/TEST-*.xml'
+          reporter: java-junit
