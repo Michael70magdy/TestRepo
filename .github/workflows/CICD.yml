@@ -34,7 +34,7 @@ on:
 
   ##change cron time
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/10 1 * * *"
 
 ##comment to try pull request
   ##new comment
