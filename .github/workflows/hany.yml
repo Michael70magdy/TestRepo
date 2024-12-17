@@ -5,7 +5,7 @@ on:
     inputs:
       testsPath:
         description: 'Path to Tests to be Executed'
-        default: 'POM_Tests.AutomationExerciseTests'
+        default: 'Registration_tests.RegistrationAndDeletionOfAccount.java'
 
 jobs:
   Remote_Tests_Execution:
@@ -29,7 +29,7 @@ jobs:
 
       - name: Run Tests
         continue-on-error: true
-        run: mvn -DBrowserName="chrome" -DHeadLessBrowsing="false" -Dtest="${{github.event.inputs.testsPath}}" test
+        run: mvn -DbrowserName="chrome" -Dheadless="false" -Dtest="${{github.event.inputs.testsPath}}" test
       - name: Generate Allure Report
         continue-on-error: true
         run: mvn allure:report

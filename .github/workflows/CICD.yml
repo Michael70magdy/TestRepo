@@ -8,7 +8,7 @@ on:
         default: 'POM_Tests.AutomationExerciseTests'
       Headless:
         description: 'headless state you want to run at'
-        default: true
+        default: "true"
         required: true
         type: choice
         options:
