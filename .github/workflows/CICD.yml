@@ -10,27 +10,15 @@ on:
         description: 'headless state you want to run at'
         default: "true"
         required: true
-        type: choice
-        options:
-          - true
-          - flase
       WindowsBrowser:
         description: 'browser you want to run at windows'
         default: "edge"
         required: true
-        type: choice
-        options:
-          - chrome
-          - edge
-
       UbuntuBrowser:
         description: 'browser you want to run at Ubuntu'
         default: "chrome"
         required: true
-        type: choice
-        options:
-          - chrome
-          - edge
+
 
   ##change cron time
   schedule:
