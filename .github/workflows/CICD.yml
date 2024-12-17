@@ -16,7 +16,7 @@ on:
           - flase
       WindowsBrowser:
         description: 'browser you want to run at windows'
-        default: edge
+        default: "edge"
         required: true
         type: choice
         options:
@@ -25,7 +25,7 @@ on:
 
       UbuntuBrowser:
         description: 'browser you want to run at Ubuntu'
-        default: chrome
+        default: "chrome"
         required: true
         type: choice
         options:
