@@ -21,8 +21,8 @@ on:
 
 
   ##change cron time
-  schedule:
-    - cron: "*/50 * * * *"
+  ##schedule:
+    ##- cron: "*/50 * * * *"
 
 ##comment to try pull request
   ##new comment
