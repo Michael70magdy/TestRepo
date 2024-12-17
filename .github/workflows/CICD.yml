@@ -34,7 +34,7 @@ on:
 
   ##change cron time
   schedule:
-    - cron: "*/10 1 * * *"
+    - cron: "*/50 * * * *"
 
 ##comment to try pull request
   ##new comment
@@ -72,7 +72,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: Tests Report Ubuntu Chrome
+          name: Tests Report Windows Edge
           path: 'target/surefire-reports/TEST-*.xml'
           reporter: java-junit
 
