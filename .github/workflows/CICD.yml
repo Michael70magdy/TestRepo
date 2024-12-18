@@ -10,8 +10,8 @@ on:
         description: 'headless state'
         default: 'true'
 ##change cron time
-  #schedule:
-    #- cron: "*/10 * * * *"
+  schedule:
+    - cron: "*/5 * * * *"
 
 ##comment to try pull request
   ##new comment
