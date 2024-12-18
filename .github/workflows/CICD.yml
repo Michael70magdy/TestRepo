@@ -16,8 +16,8 @@ on:
         description: 'browser you want to run at Ubuntu'
         default: "chrome"
 ##change cron time
-  schedule:
-    - cron: "*/5 * * * *"
+  #schedule:
+    #- cron: "*/5 * * * *"
 
 ##comment to try pull request
   ##new comment
