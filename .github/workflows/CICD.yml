@@ -8,10 +8,10 @@ on:
         default: 'POM_Tests.AutomationExerciseTests'
       WindowsBrowser:
         description: 'browser you want to run at windows'
-        default: "edge"
+        default: 'edge' 
       UbuntuBrowser:
         description: 'browser you want to run at Ubuntu'
-        default: "chrome"
+        default: 'chrome'
 ##change cron time
   schedule:
     - cron: "*/5 * * * *"
