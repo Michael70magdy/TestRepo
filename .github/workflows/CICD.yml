@@ -5,26 +5,27 @@ on:
     inputs:
       testsPath:
         description: 'Path to Tests to be Executed'
+        required: false
         default: 'POM_Tests.AutomationExerciseTests'
       WindowsBrowser:
-        description: 'browser you want to run at windows'
-        default: 'edge' 
+        description: 'Browser for Windows'
+        required: false
+        default: 'edge'
       UbuntuBrowser:
-        description: 'browser you want to run at Ubuntu'
+        description: 'Browser for Ubuntu'
+        required: false
         default: 'chrome'
-##change cron time
-  schedule:
-    - cron: "*/35 * * * *"
 
-##comment to try pull request
-  ##new comment
-  ##test test
+  schedule:
+    - cron: "*/35 * * * *"  # Every 35 minutes
+
   pull_request:
     branches:
       - main
 
 jobs:
-  E2E_Test_WindowsTest:
+  E2E_Test_Windows:
+    name: E2E Tests on Windows
     runs-on: windows-latest
     permissions:
       checks: write
@@ -44,16 +45,16 @@ jobs:
         with:
           maven-version: 3.9.9
 
-      - name: Execute Tests
-        run: mvn -DBrowserName="edge" -Dtest="${{ github.event.inputs.testsPath }}" test
+      - name: Execute Windows Tests
+        run: mvn -DBrowserName="${{ github.event.inputs.WindowsBrowser || 'edge' }}" -Dtest="${{ github.event.inputs.testsPath }}" test
 
       - name: Publish Report
         continue-on-error: true
         uses: dorny/test-reporter@v1
-        if: success() || failure()
+        if: always()
         with:
-          name: Tests Report Windows Chrome
-          path: 'target/surefire-reports/TEST-*.xml'
+          name: Tests Report Windows ${{ github.event.inputs.WindowsBrowser || 'edge' }}
+          path: target/surefire-reports/TEST-*.xml
           reporter: java-junit
 
       - name: Generate Allure Report
@@ -61,13 +62,13 @@ jobs:
         run: mvn allure:report
 
       - name: Upload Allure Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: Allure Report Windows edge
+          name: Allure Report Windows ${{ github.event.inputs.WindowsBrowser || 'edge' }}
           path: target/site/allure-maven-plugin/index.html
 
-
-  E2E_Ubuntu_Chrome:
+  E2E_Test_Ubuntu:
+    name: E2E Tests on Ubuntu
     runs-on: ubuntu-latest
     permissions:
       checks: write
@@ -82,21 +83,21 @@ jobs:
           distribution: 'zulu'
           java-version: '21'
 
-      - name: Set up Maven
-        uses: stCarolas/setup-maven@v4.5
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v5
         with:
-          maven-version: 3.9.6
+          maven-version: 3.9.9
 
-      - name: Execute Tests
-        run: mvn -DBrowserName="chrome" -DHeadLessBrowsing="true" -Dtest="${{ github.event.inputs.testsPath }}" test
+      - name: Execute Ubuntu Tests
+        run: mvn -DBrowserName="${{ github.event.inputs.UbuntuBrowser || 'chrome' }}" -DHeadLessBrowsing=true -Dtest="${{ github.event.inputs.testsPath }}" test
 
       - name: Publish Report
         continue-on-error: true
         uses: dorny/test-reporter@v1
-        if: success() || failure()
+        if: always()
         with:
-          name: Tests Report Ubuntu Chrome
-          path: 'target/surefire-reports/TEST-*.xml'
+          name: Tests Report Ubuntu ${{ github.event.inputs.UbuntuBrowser || 'chrome' }}
+          path: target/surefire-reports/TEST-*.xml
           reporter: java-junit
 
       - name: Generate Allure Report
@@ -104,7 +105,7 @@ jobs:
         run: mvn allure:report
 
       - name: Upload Allure Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: Allure Report Ubuntu Chrome
+          name: Allure Report Ubuntu ${{ github.event.inputs.UbuntuBrowser || 'chrome' }}
           path: target/site/allure-maven-plugin/index.html
