@@ -6,15 +6,15 @@ on:
       testsPath:
         description: 'Path to Tests to be Executed'
         default: 'POM_Tests.AutomationExerciseTests'
-      #WindowsBrowser:
-       # description: 'browser you want to run at windows'
-        #default: 'edge' 
-      #UbuntuBrowser:
-        #description: 'browser you want to run at Ubuntu'
-        #default: 'chrome'
+      WindowsBrowser:
+        description: 'browser you want to run at windows'
+        default: 'edge' 
+      UbuntuBrowser:
+        description: 'browser you want to run at Ubuntu'
+        default: 'chrome'
 ##change cron time
-  #schedule:
-    #- cron: "*/55 5 * * *"
+  schedule:
+    - cron: "*/35 * * * *"
 
 ##comment to try pull request
   ##new comment
