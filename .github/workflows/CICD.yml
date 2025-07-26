@@ -16,8 +16,8 @@ on:
         required: false
         default: 'chrome'
 
-  schedule:
-    - cron: "*/35 * * * *"  # Every 35 minutes
+  #schedule:
+    #- cron: "*/35 * * * *"  # Every 35 minutes
 
   pull_request:
     branches:
